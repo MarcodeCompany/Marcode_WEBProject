@@ -75,7 +75,7 @@
                         </p>
                         <div class="hero-actions">
                             <a href="#contact" class="btn-primary">Klaim Free Audit</a>
-                            <a href="#contact" class="btn-secondary">Jadwalkan Call</a>
+                            <a href="https://wa.me/6281380104456?text=Halo%20Marcode%2C%20saya%20ingin%20menjadwalkan%20call%20konsultasi." target="_blank" rel="noopener noreferrer" class="btn-secondary">Jadwalkan Call</a>
                         </div>
                     </div>
                 </div>
@@ -369,12 +369,12 @@
                     </div>
                 </div>
                 <div class="footer-form">
-                    <form>
-                        <input type="text" placeholder="Nama Lengkap" required>
-                        <input type="text" placeholder="URL Website / Instagram">
-                        <input type="email" placeholder="Email" required>
-                        <input type="text" placeholder="Nomor WhatsApp" required>
-                        <textarea placeholder="Kendala Utama" rows="3"></textarea>
+                    <form id="audit-form">
+                        <input type="text" id="lead-name" placeholder="Nama Lengkap" required>
+                        <input type="text" id="lead-url" placeholder="URL Website / Instagram">
+                        <input type="email" id="lead-email" placeholder="Email" required>
+                        <input type="text" id="lead-wa" placeholder="Nomor WhatsApp" required>
+                        <textarea id="lead-issue" placeholder="Kendala Utama" rows="3"></textarea>
                         <button type="submit" class="btn-primary">Submit & Jadwalkan</button>
                     </form>
                 </div>
@@ -386,7 +386,7 @@
                 <div class="footer-links">
                     <a href="blog.html">Articles</a>
                     <a href="#">Instagram</a>
-                    <a href="#">WhatsApp</a>
+                    <a href="https://wa.me/6281380104456" target="_blank" rel="noopener noreferrer">WhatsApp</a>
                     <a href="admin.html">Admin</a>
                 </div>
                 <div class="footer-copyright">
@@ -402,6 +402,28 @@
     <script src="main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            // Form Klaim Free Audit -> Kirim ke WhatsApp
+            const auditForm = document.getElementById('audit-form');
+            if (auditForm) {
+                auditForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('lead-name').value.trim();
+                    const url = document.getElementById('lead-url').value.trim() || '-';
+                    const email = document.getElementById('lead-email').value.trim();
+                    const wa = document.getElementById('lead-wa').value.trim();
+                    const issue = document.getElementById('lead-issue').value.trim() || '-';
+
+                    const message = `Halo Marcode, saya ingin klaim Free Audit Website & Tracking:\n\n` +
+                        `*Nama:* ${name}\n` +
+                        `*Website/IG:* ${url}\n` +
+                        `*Email:* ${email}\n` +
+                        `*No. WA:* ${wa}\n` +
+                        `*Kendala Utama:* ${issue}`;
+
+                    window.open(`https://wa.me/6281380104456?text=${encodeURIComponent(message)}`, '_blank');
+                });
+            }
+
             const homeGrid = document.getElementById('home-articles-grid');
             if (!homeGrid) return;
 
