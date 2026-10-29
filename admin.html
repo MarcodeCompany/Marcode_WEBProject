@@ -18,7 +18,6 @@
             --text-color: #111111;
             --muted: #666666;
             --border-color: #dcdcdc;
-            --accent: #111111;
             --danger: #d93025;
             --success: #188038;
             --font-display: 'Syne', sans-serif;
@@ -31,60 +30,76 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: var(--font-body);
             line-height: 1.5;
             min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Topbar */
         .admin-topbar {
             background: var(--text-color);
             color: #fff;
-            padding: 16px 5vw;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 14px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-topbar-inner {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .admin-brand {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             text-decoration: none;
             color: #fff;
         }
 
         .admin-brand img {
-            height: 36px;
+            height: 32px;
+            width: auto;
             filter: brightness(0) invert(1);
         }
 
         .admin-badge {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 4px 10px;
-            background: rgba(255, 255, 255, 0.15);
+            padding: 3px 9px;
+            background: rgba(255, 255, 255, 0.16);
             border-radius: 20px;
             font-weight: 600;
+            white-space: nowrap;
         }
 
         .topbar-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .admin-user-email {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            margin-right: 8px;
+            font-size: 0.8rem;
+            opacity: 0.75;
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Buttons */
@@ -92,8 +107,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 10px 20px;
+            gap: 6px;
+            padding: 10px 18px;
             border-radius: 50px;
             font-family: var(--font-body);
             font-weight: 600;
@@ -104,36 +119,35 @@
             border: 1px solid var(--text-color);
             background: var(--text-color);
             color: #fff;
+            white-space: nowrap;
         }
 
         .btn:hover {
             opacity: 0.9;
-            transform: translateY(-1px);
         }
 
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
 
         .btn-outline {
-            background: transparent;
+            background: #fff;
             color: var(--text-color);
             border-color: var(--border-color);
         }
 
         .btn-outline:hover {
             border-color: var(--text-color);
-            background: #f0f0f0;
+            background: #f5f5f5;
         }
 
         .btn-light {
             background: rgba(255, 255, 255, 0.12);
             color: #fff;
             border-color: rgba(255, 255, 255, 0.25);
-            padding: 8px 16px;
-            font-size: 0.8rem;
+            padding: 7px 14px;
+            font-size: 0.78rem;
         }
 
         .btn-light:hover {
@@ -142,7 +156,7 @@
         }
 
         .btn-danger {
-            background: transparent;
+            background: #fff;
             color: var(--danger);
             border-color: #f1c1be;
         }
@@ -153,71 +167,39 @@
         }
 
         .btn-sm {
-            padding: 6px 14px;
+            padding: 6px 12px;
             font-size: 0.78rem;
+            border-radius: 6px;
         }
 
         /* Container */
         .admin-container {
-            max-width: 1360px;
+            max-width: 1320px;
             margin: 0 auto;
-            padding: 40px 5vw;
-        }
-
-        /* Setup Box */
-        .setup-banner {
-            background: #fff;
-            border: 2px solid var(--text-color);
-            border-radius: 8px;
-            padding: 28px;
-            margin-bottom: 30px;
-        }
-
-        .setup-banner h2 {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .setup-steps {
-            margin: 15px 0 20px 20px;
-            font-size: 0.92rem;
-            color: #333;
-        }
-
-        .setup-steps li {
-            margin-bottom: 6px;
-        }
-
-        .setup-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 12px;
-            align-items: end;
+            padding: 28px 20px 60px;
         }
 
         /* Login Card */
         .login-wrapper {
-            max-width: 440px;
-            margin: 60px auto;
+            max-width: 420px;
+            margin: 40px auto;
             background: var(--surface);
-            padding: 40px;
-            border-radius: 8px;
+            padding: 32px 24px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
         .login-wrapper h1 {
             font-family: var(--font-display);
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .login-wrapper p {
             color: var(--muted);
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             margin-bottom: 24px;
         }
 
@@ -229,18 +211,20 @@
         .form-group label {
             display: block;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
         .form-group .hint {
-            font-size: 0.78rem;
+            display: block;
+            font-size: 0.75rem;
             color: var(--muted);
             font-weight: 400;
             text-transform: none;
             letter-spacing: 0;
+            margin-top: 2px;
         }
 
         input[type="text"],
@@ -250,11 +234,12 @@
         select,
         textarea {
             width: 100%;
+            max-width: 100%;
             padding: 12px 14px;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             font-family: var(--font-body);
-            font-size: 0.95rem;
+            font-size: 16px; /* Prevents iOS auto-zoom on focus */
             background: #fff;
             color: var(--text-color);
             outline: none;
@@ -270,37 +255,40 @@
         /* Dashboard Layout */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 32px;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+            gap: 24px;
             align-items: start;
         }
 
         .panel-card {
             background: var(--surface);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 32px;
+            border-radius: 12px;
+            padding: 24px;
+            min-width: 0;
         }
 
         .panel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 16px;
-            margin-bottom: 24px;
+            gap: 12px;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
         }
 
         .panel-header h2 {
             font-family: var(--font-display);
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
         }
 
         .form-row-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 14px;
         }
 
         /* Editor Toolbar */
@@ -312,17 +300,18 @@
             background: #f7f7f7;
             border: 1px solid var(--border-color);
             border-bottom: none;
-            border-radius: 6px 6px 0 0;
+            border-radius: 8px 8px 0 0;
         }
 
         .toolbar-btn {
             padding: 6px 10px;
             background: #fff;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.8rem;
+            border-radius: 6px;
+            font-size: 0.78rem;
             font-weight: 600;
             cursor: pointer;
+            color: var(--text-color);
         }
 
         .toolbar-btn:hover {
@@ -333,7 +322,7 @@
         #article-content {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
-            min-height: 260px;
+            min-height: 240px;
             line-height: 1.6;
             resize: vertical;
         }
@@ -342,52 +331,75 @@
         .image-upload-row {
             display: flex;
             gap: 10px;
+            align-items: stretch;
+        }
+
+        .upload-btn-label {
+            margin: 0 !important;
+            display: inline-flex !important;
             align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 10px 16px;
         }
 
         .image-preview-box {
             margin-top: 10px;
             width: 100%;
-            height: 180px;
-            border-radius: 6px;
+            height: 170px;
+            border-radius: 8px;
             border: 1px dashed var(--border-color);
             background-size: cover;
             background-position: center;
             display: none;
         }
 
+        /* Form Submit Row */
+        .form-submit-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
         /* Checkbox Toggle */
         .checkbox-label {
-            display: inline-flex;
+            display: inline-flex !important;
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.92rem;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            text-transform: none !important;
             user-select: none;
+            margin-bottom: 0 !important;
         }
 
         .checkbox-label input {
             width: 18px;
             height: 18px;
             accent-color: var(--text-color);
+            flex-shrink: 0;
         }
 
         /* Article List Items */
         .article-list {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
         .article-item {
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 16px;
+            border-radius: 8px;
+            padding: 14px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 16px;
+            flex-direction: column;
+            gap: 12px;
             transition: border-color 0.2s;
         }
 
@@ -396,17 +408,18 @@
         }
 
         .article-item-info h3 {
-            font-size: 1rem;
+            font-size: 0.98rem;
             margin-bottom: 6px;
             line-height: 1.35;
+            word-break: break-word;
         }
 
         .article-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             color: var(--muted);
         }
 
@@ -414,7 +427,7 @@
             padding: 2px 8px;
             border-radius: 12px;
             font-weight: 600;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
         }
 
@@ -430,17 +443,25 @@
 
         .article-item-actions {
             display: flex;
-            gap: 6px;
-            flex-shrink: 0;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding-top: 8px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .article-item-actions .btn-sm {
+            flex: 1;
+            text-align: center;
         }
 
         /* Alerts */
         .alert {
             padding: 12px 16px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 0.88rem;
             margin-bottom: 18px;
             display: none;
+            word-break: break-word;
         }
 
         .alert.error {
@@ -457,11 +478,72 @@
             display: block;
         }
 
+        /* --- RESPONSIVE MOBILE & TABLET --- */
         @media (max-width: 960px) {
-            .dashboard-grid,
-            .setup-grid,
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .admin-topbar {
+                padding: 12px 16px;
+            }
+
+            .admin-brand img {
+                height: 26px;
+            }
+
+            .admin-user-email {
+                display: none; /* Hide email text on small screens to keep topbar clean */
+            }
+
+            .admin-container {
+                padding: 16px 14px 48px;
+            }
+
+            .login-wrapper {
+                margin: 20px auto;
+                padding: 24px 18px;
+            }
+
+            .panel-card {
+                padding: 18px 16px;
+            }
+
             .form-row-2 {
                 grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .image-upload-row {
+                flex-direction: column;
+            }
+
+            .upload-btn-label {
+                width: 100%;
+            }
+
+            .editor-toolbar {
+                gap: 4px;
+                padding: 6px;
+            }
+
+            .toolbar-btn {
+                flex: 1 1 calc(33.33% - 6px);
+                text-align: center;
+                padding: 8px 6px;
+                font-size: 0.75rem;
+            }
+
+            .form-submit-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-submit-row .btn {
+                width: 100%;
+                padding: 14px;
             }
         }
     </style>
@@ -471,48 +553,20 @@
 
     <!-- Topbar -->
     <header class="admin-topbar">
-        <a href="index.html" class="admin-brand">
-            <img src="images/marcodelogo01.svg" alt="Marcode" onerror="this.style.display='none'">
-            <span class="admin-badge">CMS Admin</span>
-        </a>
-        <div class="topbar-actions">
-            <span id="admin-user-email" class="admin-user-email"></span>
-            <button type="button" id="btn-toggle-setup" class="btn btn-light">⚙️ Koneksi Supabase</button>
-            <a href="blog.html" class="btn btn-light" target="_blank">Lihat Blog ↗</a>
-            <button type="button" id="btn-logout" class="btn btn-light" style="display: none;">Logout</button>
+        <div class="admin-topbar-inner">
+            <a href="index.html" class="admin-brand">
+                <img src="images/marcodelogo01.svg" alt="Marcode" onerror="this.style.display='none'">
+                <span class="admin-badge">CMS Admin</span>
+            </a>
+            <div class="topbar-actions">
+                <span id="admin-user-email" class="admin-user-email"></span>
+                <a href="blog.html" class="btn btn-light" target="_blank">Lihat Blog ↗</a>
+                <button type="button" id="btn-logout" class="btn btn-light" style="display: none;">Logout</button>
+            </div>
         </div>
     </header>
 
     <div class="admin-container">
-
-        <!-- Setup Panel (Appears automatically if Supabase URL/Key is not configured yet) -->
-        <div id="setup-panel" class="setup-banner" style="display: none;">
-            <h2>⚡ Hubungkan Project Supabase Anda</h2>
-            <p style="color: #555; font-size: 0.92rem;">
-                Masukkan <strong>Project URL</strong> dan <strong>Anon Public Key</strong> dari dashboard Supabase Anda
-                (Menu <em>Project Settings &rarr; API</em>).
-            </p>
-            <ol class="setup-steps">
-                <li>Buat project gratis di <a href="https://supabase.com/dashboard" target="_blank" style="text-decoration: underline; font-weight: 600;">supabase.com/dashboard</a>.</li>
-                <li>Buka menu <strong>SQL Editor</strong>, copy-paste isi file <code>supabase-setup.sql</code> yang ada di folder project ini, lalu klik <strong>Run</strong>.</li>
-                <li>Buka menu <strong>Authentication &rarr; Users &rarr; Add User &rarr; Create New User</strong> untuk membuat email & password login Admin Anda.</li>
-                <li>Buka menu <strong>Project Settings &rarr; API</strong>, lalu tempel <em>Project URL</em> dan <em>anon public key</em> di bawah ini:</li>
-            </ol>
-            <div class="setup-grid">
-                <div>
-                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">SUPABASE PROJECT URL</label>
-                    <input type="url" id="input-supabase-url" placeholder="https://xxxxxxxxxxxx.supabase.co">
-                </div>
-                <div>
-                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">SUPABASE ANON PUBLIC KEY</label>
-                    <input type="text" id="input-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
-                </div>
-                <button type="button" id="btn-save-supabase" class="btn">Simpan & Hubungkan</button>
-            </div>
-            <p style="margin-top: 12px; font-size: 0.8rem; color: #666;">
-                💡 <em>Tips Deploy:</em> Agar permanen untuk semua pengunjung saat di-push ke GitHub Pages, tempel juga URL & Key tersebut ke dalam file <code>supabase-config.js</code>.
-            </p>
-        </div>
 
         <!-- Global Alert -->
         <div id="global-alert" class="alert"></div>
@@ -520,7 +574,7 @@
         <!-- VIEW 1: LOGIN FORM -->
         <div id="login-view" class="login-wrapper">
             <h1>Login Admin</h1>
-            <p>Masuk menggunakan akun Admin Supabase untuk membuat dan mengelola artikel Marcode.</p>
+            <p>Masuk menggunakan akun Admin untuk membuat dan mengelola artikel Marcode.</p>
             <form id="login-form">
                 <div class="form-group">
                     <label for="login-email">Email Admin</label>
@@ -544,7 +598,7 @@
                 <div class="panel-header">
                     <h2 id="form-title">Buat Artikel Baru</h2>
                     <button type="button" id="btn-cancel-edit" class="btn btn-outline btn-sm" style="display: none;">
-                        Batal Edit
+                        ✕ Batal Edit
                     </button>
                 </div>
 
@@ -578,11 +632,11 @@
                     <div class="form-group">
                         <label for="article-image">
                             Gambar Thumbnail
-                            <span class="hint">(Tempel URL gambar atau klik Upload File)</span>
+                            <span class="hint">Tempel link gambar atau upload langsung dari HP/Laptop</span>
                         </label>
                         <div class="image-upload-row">
                             <input type="url" id="article-image" placeholder="https://images.unsplash.com/...">
-                            <label class="btn btn-outline" style="white-space: nowrap; margin: 0;">
+                            <label class="btn btn-outline upload-btn-label">
                                 📁 Upload Gambar
                                 <input type="file" id="article-image-file" accept="image/*" style="display: none;">
                             </label>
@@ -598,26 +652,26 @@
                     <div class="form-group">
                         <label for="article-content">
                             Isi Artikel *
-                            <span class="hint">(Bisa teks biasa atau menggunakan tombol format di bawah)</span>
+                            <span class="hint">Tulis paragraf biasa atau gunakan tombol format di bawah</span>
                         </label>
                         <div class="editor-toolbar">
-                            <button type="button" class="toolbar-btn" data-tag="h3">Judul Subbab (H3)</button>
+                            <button type="button" class="toolbar-btn" data-tag="h3">Subjudul</button>
                             <button type="button" class="toolbar-btn" data-tag="bold"><b>B</b> Tebal</button>
                             <button type="button" class="toolbar-btn" data-tag="italic"><i>I</i> Miring</button>
-                            <button type="button" class="toolbar-btn" data-tag="ul">• Bullet List</button>
+                            <button type="button" class="toolbar-btn" data-tag="ul">• List</button>
                             <button type="button" class="toolbar-btn" data-tag="quote">❝ Kutipan</button>
                             <button type="button" class="toolbar-btn" data-tag="link">🔗 Link</button>
                         </div>
-                        <textarea id="article-content" placeholder="Tulis isi artikel di sini... Paragraf baru akan otomatis diformat dengan rapi." required></textarea>
+                        <textarea id="article-content" placeholder="Tulis isi artikel di sini..." required></textarea>
                     </div>
 
-                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+                    <div class="form-submit-row">
                         <label class="checkbox-label">
                             <input type="checkbox" id="article-published" checked>
                             Langsung Publish ke Website
                         </label>
 
-                        <button type="submit" id="btn-save-article" class="btn" style="padding: 12px 32px;">
+                        <button type="submit" id="btn-save-article" class="btn" style="padding: 12px 28px;">
                             🚀 Publish Artikel
                         </button>
                     </div>
@@ -644,12 +698,6 @@
     <script src="supabase-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const setupPanel = document.getElementById('setup-panel');
-            const btnToggleSetup = document.getElementById('btn-toggle-setup');
-            const inputUrl = document.getElementById('input-supabase-url');
-            const inputKey = document.getElementById('input-supabase-key');
-            const btnSaveSupabase = document.getElementById('btn-save-supabase');
-
             const globalAlert = document.getElementById('global-alert');
             const loginView = document.getElementById('login-view');
             const dashboardView = document.getElementById('dashboard-view');
@@ -659,34 +707,11 @@
             function showAlert(message, type = 'error') {
                 globalAlert.textContent = message;
                 globalAlert.className = `alert ${type}`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 setTimeout(() => {
                     globalAlert.className = 'alert';
                 }, 6000);
             }
-
-            // Pre-fill setup inputs if already configured
-            if (isSupabaseConfigured()) {
-                inputUrl.value = SUPABASE_URL;
-                inputKey.value = SUPABASE_ANON_KEY;
-            } else {
-                setupPanel.style.display = 'block';
-            }
-
-            btnToggleSetup.addEventListener('click', () => {
-                setupPanel.style.display = setupPanel.style.display === 'none' ? 'block' : 'none';
-            });
-
-            btnSaveSupabase.addEventListener('click', () => {
-                const url = inputUrl.value.trim();
-                const key = inputKey.value.trim();
-                if (!url.startsWith('https://') || !key) {
-                    showAlert('Masukkan Project URL (https://...) dan Anon Key yang valid.', 'error');
-                    return;
-                }
-                localStorage.setItem('marcode_supabase_url', url);
-                localStorage.setItem('marcode_supabase_anon_key', key);
-                window.location.reload();
-            });
 
             // Helper: Auto-slug from title
             const titleInput = document.getElementById('article-title');
@@ -694,7 +719,6 @@
             const idInput = document.getElementById('article-id');
 
             titleInput.addEventListener('input', () => {
-                // Only auto-generate slug when creating a new article
                 if (!idInput.value) {
                     slugInput.value = titleInput.value
                         .toLowerCase()
@@ -725,10 +749,7 @@
             imageFileInput.addEventListener('change', async (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
-                if (!supabaseClient) {
-                    showAlert('Hubungkan Supabase terlebih dahulu sebelum mengupload gambar.', 'error');
-                    return;
-                }
+                if (!supabaseClient) return;
 
                 const ext = file.name.split('.').pop();
                 const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
@@ -749,7 +770,7 @@
                     updateImagePreview(publicUrlData.publicUrl);
                     showAlert('Gambar berhasil diupload!', 'success');
                 } catch (err) {
-                    showAlert('Gagal upload gambar: ' + err.message + '. Pastikan script supabase-setup.sql sudah dijalankan.', 'error');
+                    showAlert('Gagal upload gambar: ' + err.message, 'error');
                 }
             });
 
@@ -782,11 +803,9 @@
                 });
             });
 
-            // Format plain text paragraphs into HTML if no <p> tags exist
             function normalizeContentToHtml(raw) {
                 const trimmed = raw.trim();
                 if (trimmed.includes('<p>') || trimmed.includes('<h3>') || trimmed.includes('<ul>')) {
-                    // Wrap standalone blocks that aren't already tags
                     return trimmed
                         .split(/\n\s*\n/)
                         .map(block => {
@@ -829,11 +848,7 @@
             // Login Handler
             document.getElementById('login-form').addEventListener('submit', async (e) => {
                 e.preventDefault();
-                if (!supabaseClient) {
-                    setupPanel.style.display = 'block';
-                    showAlert('Silakan isi Project URL & Anon Key Supabase terlebih dahulu di kotak atas.', 'error');
-                    return;
-                }
+                if (!supabaseClient) return;
 
                 const email = document.getElementById('login-email').value.trim();
                 const password = document.getElementById('login-password').value;
@@ -877,12 +892,12 @@
                     .order('created_at', { ascending: false });
 
                 if (error) {
-                    adminListEl.innerHTML = `<p style="color: var(--danger); font-size: 0.9rem;">Error: ${error.message}. Pastikan Anda sudah menjalankan <code>supabase-setup.sql</code> di SQL Editor Supabase.</p>`;
+                    adminListEl.innerHTML = `<p style="color: var(--danger); font-size: 0.9rem;">Error: ${error.message}</p>`;
                     return;
                 }
 
                 if (!data || data.length === 0) {
-                    adminListEl.innerHTML = '<p style="color: var(--muted); font-size: 0.9rem;">Belum ada artikel. Silakan buat artikel pertama Anda di sebelah kiri.</p>';
+                    adminListEl.innerHTML = '<p style="color: var(--muted); font-size: 0.9rem;">Belum ada artikel.</p>';
                     return;
                 }
 
@@ -906,7 +921,6 @@
                     </div>
                 `).join('');
 
-                // Attach Edit & Delete handlers
                 adminListEl.querySelectorAll('.btn-edit').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const article = data.find(a => a.id === btn.dataset.id);
@@ -1020,4 +1034,3 @@
 </body>
 
 </html>
-
