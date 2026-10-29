@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Artikel | Marcode</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f4f4;
+            --surface: #ffffff;
+            --text-color: #111111;
+            --muted: #666666;
+            --border-color: #dcdcdc;
+            --accent: #111111;
+            --danger: #d93025;
+            --success: #188038;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* Topbar */
+        .admin-topbar {
+            background: var(--text-color);
+            color: #fff;
+            padding: 16px 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .admin-brand img {
+            height: 36px;
+            filter: brightness(0) invert(1);
+        }
+
+        .admin-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-user-email {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-right: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid var(--text-color);
+            background: var(--text-color);
+            color: #fff;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-color);
+            border-color: var(--border-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-color);
+            background: #f0f0f0;
+        }
+
+        .btn-light {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.25);
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+
+        .btn-light:hover {
+            background: #fff;
+            color: #111;
+        }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--danger);
+            border-color: #f1c1be;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.78rem;
+        }
+
+        /* Container */
+        .admin-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 40px 5vw;
+        }
+
+        /* Setup Box */
+        .setup-banner {
+            background: #fff;
+            border: 2px solid var(--text-color);
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 30px;
+        }
+
+        .setup-banner h2 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .setup-steps {
+            margin: 15px 0 20px 20px;
+            font-size: 0.92rem;
+            color: #333;
+        }
+
+        .setup-steps li {
+            margin-bottom: 6px;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        /* Login Card */
+        .login-wrapper {
+            max-width: 440px;
+            margin: 60px auto;
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .login-wrapper h1 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .login-wrapper p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 24px;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group .hint {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="url"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            background: #fff;
+            color: var(--text-color);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--text-color);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .panel-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 32px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            text-transform: uppercase;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Editor Toolbar */
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            background: #f7f7f7;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .toolbar-btn {
+            padding: 6px 10px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--text-color);
+            color: #fff;
+        }
+
+        #article-content {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            min-height: 260px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        /* Image Upload / Preview */
+        .image-upload-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .image-preview-box {
+            margin-top: 10px;
+            width: 100%;
+            height: 180px;
+            border-radius: 6px;
+            border: 1px dashed var(--border-color);
+            background-size: cover;
+            background-position: center;
+            display: none;
+        }
+
+        /* Checkbox Toggle */
+        .checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.92rem;
+            user-select: none;
+        }
+
+        .checkbox-label input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--text-color);
+        }
+
+        /* Article List Items */
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .article-item {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .article-item:hover {
+            border-color: var(--text-color);
+        }
+
+        .article-item-info h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .status-pill {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+        }
+
+        .status-pill.published {
+            background: #e6f4ea;
+            color: var(--success);
+        }
+
+        .status-pill.draft {
+            background: #fef7e0;
+            color: #b06000;
+        }
+
+        .article-item-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            margin-bottom: 18px;
+            display: none;
+        }
+
+        .alert.error {
+            background: #fce8e6;
+            color: var(--danger);
+            border: 1px solid #f5c2c0;
+            display: block;
+        }
+
+        .alert.success {
+            background: #e6f4ea;
+            color: var(--success);
+            border: 1px solid #ceead6;
+            display: block;
+        }
+
+        @media (max-width: 960px) {
+            .dashboard-grid,
+            .setup-grid,
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Topbar -->
+    <header class="admin-topbar">
+        <a href="index.html" class="admin-brand">
+            <img src="images/marcodelogo01.svg" alt="Marcode" onerror="this.style.display='none'">
+            <span class="admin-badge">CMS Admin</span>
+        </a>
+        <div class="topbar-actions">
+            <span id="admin-user-email" class="admin-user-email"></span>
+            <button type="button" id="btn-toggle-setup" class="btn btn-light">⚙️ Koneksi Supabase</button>
+            <a href="blog.html" class="btn btn-light" target="_blank">Lihat Blog ↗</a>
+            <button type="button" id="btn-logout" class="btn btn-light" style="display: none;">Logout</button>
+        </div>
+    </header>
+
+    <div class="admin-container">
+
+        <!-- Setup Panel (Appears automatically if Supabase URL/Key is not configured yet) -->
+        <div id="setup-panel" class="setup-banner" style="display: none;">
+            <h2>⚡ Hubungkan Project Supabase Anda</h2>
+            <p style="color: #555; font-size: 0.92rem;">
+                Masukkan <strong>Project URL</strong> dan <strong>Anon Public Key</strong> dari dashboard Supabase Anda
+                (Menu <em>Project Settings &rarr; API</em>).
+            </p>
+            <ol class="setup-steps">
+                <li>Buat project gratis di <a href="https://supabase.com/dashboard" target="_blank" style="text-decoration: underline; font-weight: 600;">supabase.com/dashboard</a>.</li>
+                <li>Buka menu <strong>SQL Editor</strong>, copy-paste isi file <code>supabase-setup.sql</code> yang ada di folder project ini, lalu klik <strong>Run</strong>.</li>
+                <li>Buka menu <strong>Authentication &rarr; Users &rarr; Add User &rarr; Create New User</strong> untuk membuat email & password login Admin Anda.</li>
+                <li>Buka menu <strong>Project Settings &rarr; API</strong>, lalu tempel <em>Project URL</em> dan <em>anon public key</em> di bawah ini:</li>
+            </ol>
+            <div class="setup-grid">
+                <div>
+                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">SUPABASE PROJECT URL</label>
+                    <input type="url" id="input-supabase-url" placeholder="https://xxxxxxxxxxxx.supabase.co">
+                </div>
+                <div>
+                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">SUPABASE ANON PUBLIC KEY</label>
+                    <input type="text" id="input-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                </div>
+                <button type="button" id="btn-save-supabase" class="btn">Simpan & Hubungkan</button>
+            </div>
+            <p style="margin-top: 12px; font-size: 0.8rem; color: #666;">
+                💡 <em>Tips Deploy:</em> Agar permanen untuk semua pengunjung saat di-push ke GitHub Pages, tempel juga URL & Key tersebut ke dalam file <code>supabase-config.js</code>.
+            </p>
+        </div>
+
+        <!-- Global Alert -->
+        <div id="global-alert" class="alert"></div>
+
+        <!-- VIEW 1: LOGIN FORM -->
+        <div id="login-view" class="login-wrapper">
+            <h1>Login Admin</h1>
+            <p>Masuk menggunakan akun Admin Supabase untuk membuat dan mengelola artikel Marcode.</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email Admin</label>
+                    <input type="email" id="login-email" placeholder="admin@marcode.id" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="btn-login" class="btn" style="width: 100%; padding: 14px;">
+                    Masuk ke Dashboard
+                </button>
+            </form>
+        </div>
+
+        <!-- VIEW 2: ADMIN DASHBOARD -->
+        <div id="dashboard-view" class="dashboard-grid" style="display: none;">
+
+            <!-- Left Column: Create / Edit Form -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <h2 id="form-title">Buat Artikel Baru</h2>
+                    <button type="button" id="btn-cancel-edit" class="btn btn-outline btn-sm" style="display: none;">
+                        Batal Edit
+                    </button>
+                </div>
+
+                <form id="article-form">
+                    <input type="hidden" id="article-id">
+
+                    <div class="form-group">
+                        <label for="article-title">Judul Artikel *</label>
+                        <input type="text" id="article-title" placeholder="Contoh: Strategi Meta Ads 2026 untuk Scale Up Brand" required>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="article-slug">Slug URL *</label>
+                            <input type="text" id="article-slug" placeholder="strategi-meta-ads-2026" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="article-category">Kategori</label>
+                            <input type="text" id="article-category" list="category-list" value="Digital Marketing" required>
+                            <datalist id="category-list">
+                                <option value="Digital Marketing">
+                                <option value="Meta Ads">
+                                <option value="Web Development">
+                                <option value="SEO Optimization">
+                                <option value="Analytics & Tracking">
+                                <option value="Case Study">
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-image">
+                            Gambar Thumbnail
+                            <span class="hint">(Tempel URL gambar atau klik Upload File)</span>
+                        </label>
+                        <div class="image-upload-row">
+                            <input type="url" id="article-image" placeholder="https://images.unsplash.com/...">
+                            <label class="btn btn-outline" style="white-space: nowrap; margin: 0;">
+                                📁 Upload Gambar
+                                <input type="file" id="article-image-file" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <div id="image-preview" class="image-preview-box"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-excerpt">Ringkasan Singkat (Excerpt) *</label>
+                        <textarea id="article-excerpt" rows="2" placeholder="Ringkasan 1-2 kalimat yang tampil di kartu daftar artikel..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-content">
+                            Isi Artikel *
+                            <span class="hint">(Bisa teks biasa atau menggunakan tombol format di bawah)</span>
+                        </label>
+                        <div class="editor-toolbar">
+                            <button type="button" class="toolbar-btn" data-tag="h3">Judul Subbab (H3)</button>
+                            <button type="button" class="toolbar-btn" data-tag="bold"><b>B</b> Tebal</button>
+                            <button type="button" class="toolbar-btn" data-tag="italic"><i>I</i> Miring</button>
+                            <button type="button" class="toolbar-btn" data-tag="ul">• Bullet List</button>
+                            <button type="button" class="toolbar-btn" data-tag="quote">❝ Kutipan</button>
+                            <button type="button" class="toolbar-btn" data-tag="link">🔗 Link</button>
+                        </div>
+                        <textarea id="article-content" placeholder="Tulis isi artikel di sini... Paragraf baru akan otomatis diformat dengan rapi." required></textarea>
+                    </div>
+
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px;">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="article-published" checked>
+                            Langsung Publish ke Website
+                        </label>
+
+                        <button type="submit" id="btn-save-article" class="btn" style="padding: 12px 32px;">
+                            🚀 Publish Artikel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Column: Existing Articles -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <h2>Daftar Artikel</h2>
+                    <button type="button" id="btn-refresh-list" class="btn btn-outline btn-sm">↻ Refresh</button>
+                </div>
+                <div id="admin-articles-list" class="article-list">
+                    <p style="color: var(--muted); font-size: 0.9rem;">Memuat daftar artikel...</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const setupPanel = document.getElementById('setup-panel');
+            const btnToggleSetup = document.getElementById('btn-toggle-setup');
+            const inputUrl = document.getElementById('input-supabase-url');
+            const inputKey = document.getElementById('input-supabase-key');
+            const btnSaveSupabase = document.getElementById('btn-save-supabase');
+
+            const globalAlert = document.getElementById('global-alert');
+            const loginView = document.getElementById('login-view');
+            const dashboardView = document.getElementById('dashboard-view');
+            const btnLogout = document.getElementById('btn-logout');
+            const adminUserEmail = document.getElementById('admin-user-email');
+
+            function showAlert(message, type = 'error') {
+                globalAlert.textContent = message;
+                globalAlert.className = `alert ${type}`;
+                setTimeout(() => {
+                    globalAlert.className = 'alert';
+                }, 6000);
+            }
+
+            // Pre-fill setup inputs if already configured
+            if (isSupabaseConfigured()) {
+                inputUrl.value = SUPABASE_URL;
+                inputKey.value = SUPABASE_ANON_KEY;
+            } else {
+                setupPanel.style.display = 'block';
+            }
+
+            btnToggleSetup.addEventListener('click', () => {
+                setupPanel.style.display = setupPanel.style.display === 'none' ? 'block' : 'none';
+            });
+
+            btnSaveSupabase.addEventListener('click', () => {
+                const url = inputUrl.value.trim();
+                const key = inputKey.value.trim();
+                if (!url.startsWith('https://') || !key) {
+                    showAlert('Masukkan Project URL (https://...) dan Anon Key yang valid.', 'error');
+                    return;
+                }
+                localStorage.setItem('marcode_supabase_url', url);
+                localStorage.setItem('marcode_supabase_anon_key', key);
+                window.location.reload();
+            });
+
+            // Helper: Auto-slug from title
+            const titleInput = document.getElementById('article-title');
+            const slugInput = document.getElementById('article-slug');
+            const idInput = document.getElementById('article-id');
+
+            titleInput.addEventListener('input', () => {
+                // Only auto-generate slug when creating a new article
+                if (!idInput.value) {
+                    slugInput.value = titleInput.value
+                        .toLowerCase()
+                        .replace(/[^a-z0-9\s-]/g, '')
+                        .trim()
+                        .replace(/\s+/g, '-')
+                        .replace(/-+/g, '-');
+                }
+            });
+
+            // Image Preview & Upload
+            const imageInput = document.getElementById('article-image');
+            const imageFileInput = document.getElementById('article-image-file');
+            const imagePreview = document.getElementById('image-preview');
+
+            function updateImagePreview(url) {
+                if (url && url.startsWith('http')) {
+                    imagePreview.style.display = 'block';
+                    imagePreview.style.backgroundImage = `url('${url}')`;
+                } else {
+                    imagePreview.style.display = 'none';
+                    imagePreview.style.backgroundImage = 'none';
+                }
+            }
+
+            imageInput.addEventListener('input', () => updateImagePreview(imageInput.value.trim()));
+
+            imageFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (!supabaseClient) {
+                    showAlert('Hubungkan Supabase terlebih dahulu sebelum mengupload gambar.', 'error');
+                    return;
+                }
+
+                const ext = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
+
+                try {
+                    showAlert('Mengupload gambar...', 'success');
+                    const { error } = await supabaseClient.storage
+                        .from('article-images')
+                        .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+                    if (error) throw error;
+
+                    const { data: publicUrlData } = supabaseClient.storage
+                        .from('article-images')
+                        .getPublicUrl(fileName);
+
+                    imageInput.value = publicUrlData.publicUrl;
+                    updateImagePreview(publicUrlData.publicUrl);
+                    showAlert('Gambar berhasil diupload!', 'success');
+                } catch (err) {
+                    showAlert('Gagal upload gambar: ' + err.message + '. Pastikan script supabase-setup.sql sudah dijalankan.', 'error');
+                }
+            });
+
+            // Formatting Toolbar
+            const contentArea = document.getElementById('article-content');
+            document.querySelectorAll('.toolbar-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tag = btn.dataset.tag;
+                    const start = contentArea.selectionStart;
+                    const end = contentArea.selectionEnd;
+                    const selected = contentArea.value.substring(start, end) || 'Teks di sini';
+                    let replacement = '';
+
+                    if (tag === 'h3') replacement = `\n<h3>${selected}</h3>\n`;
+                    else if (tag === 'bold') replacement = `<strong>${selected}</strong>`;
+                    else if (tag === 'italic') replacement = `<em>${selected}</em>`;
+                    else if (tag === 'ul') replacement = `\n<ul>\n  <li>${selected}</li>\n  <li>Poin kedua</li>\n</ul>\n`;
+                    else if (tag === 'quote') replacement = `\n<blockquote>${selected}</blockquote>\n`;
+                    else if (tag === 'link') {
+                        const url = prompt('Masukkan URL Link:', 'https://');
+                        if (!url) return;
+                        replacement = `<a href="${url}" target="_blank">${selected}</a>`;
+                    }
+
+                    contentArea.value =
+                        contentArea.value.substring(0, start) +
+                        replacement +
+                        contentArea.value.substring(end);
+                    contentArea.focus();
+                });
+            });
+
+            // Format plain text paragraphs into HTML if no <p> tags exist
+            function normalizeContentToHtml(raw) {
+                const trimmed = raw.trim();
+                if (trimmed.includes('<p>') || trimmed.includes('<h3>') || trimmed.includes('<ul>')) {
+                    // Wrap standalone blocks that aren't already tags
+                    return trimmed
+                        .split(/\n\s*\n/)
+                        .map(block => {
+                            const b = block.trim();
+                            if (!b) return '';
+                            if (/^<(h[1-6]|ul|ol|p|blockquote|div)/i.test(b)) return b;
+                            return `<p>${b.replace(/\n/g, '<br>')}</p>`;
+                        })
+                        .join('\n');
+                }
+                return trimmed
+                    .split(/\n\s*\n/)
+                    .map(p => `<p>${p.trim().replace(/\n/g, '<br>')}</p>`)
+                    .join('\n');
+            }
+
+            // Auth & Session Management
+            async function checkSession() {
+                if (!supabaseClient) {
+                    loginView.style.display = 'block';
+                    dashboardView.style.display = 'none';
+                    return;
+                }
+
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session && session.user) {
+                    loginView.style.display = 'none';
+                    dashboardView.style.display = 'grid';
+                    btnLogout.style.display = 'inline-flex';
+                    adminUserEmail.textContent = session.user.email;
+                    loadAdminArticles();
+                } else {
+                    loginView.style.display = 'block';
+                    dashboardView.style.display = 'none';
+                    btnLogout.style.display = 'none';
+                    adminUserEmail.textContent = '';
+                }
+            }
+
+            // Login Handler
+            document.getElementById('login-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!supabaseClient) {
+                    setupPanel.style.display = 'block';
+                    showAlert('Silakan isi Project URL & Anon Key Supabase terlebih dahulu di kotak atas.', 'error');
+                    return;
+                }
+
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+                const btnLogin = document.getElementById('btn-login');
+
+                btnLogin.disabled = true;
+                btnLogin.textContent = 'Memverifikasi...';
+
+                const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+                btnLogin.disabled = false;
+                btnLogin.textContent = 'Masuk ke Dashboard';
+
+                if (error) {
+                    showAlert('Login gagal: ' + error.message, 'error');
+                    return;
+                }
+
+                showAlert('Berhasil login!', 'success');
+                checkSession();
+            });
+
+            // Logout Handler
+            btnLogout.addEventListener('click', async () => {
+                if (supabaseClient) {
+                    await supabaseClient.auth.signOut();
+                }
+                checkSession();
+            });
+
+            // Load Articles in Admin
+            const adminListEl = document.getElementById('admin-articles-list');
+
+            async function loadAdminArticles() {
+                if (!supabaseClient) return;
+                adminListEl.innerHTML = '<p style="color: var(--muted); font-size: 0.9rem;">Memuat daftar artikel...</p>';
+
+                const { data, error } = await supabaseClient
+                    .from('articles')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    adminListEl.innerHTML = `<p style="color: var(--danger); font-size: 0.9rem;">Error: ${error.message}. Pastikan Anda sudah menjalankan <code>supabase-setup.sql</code> di SQL Editor Supabase.</p>`;
+                    return;
+                }
+
+                if (!data || data.length === 0) {
+                    adminListEl.innerHTML = '<p style="color: var(--muted); font-size: 0.9rem;">Belum ada artikel. Silakan buat artikel pertama Anda di sebelah kiri.</p>';
+                    return;
+                }
+
+                adminListEl.innerHTML = data.map(art => `
+                    <div class="article-item">
+                        <div class="article-item-info">
+                            <h3>${art.title}</h3>
+                            <div class="article-meta">
+                                <span class="status-pill ${art.published ? 'published' : 'draft'}">
+                                    ${art.published ? 'Published' : 'Draft'}
+                                </span>
+                                <span>• ${art.category || 'Umum'}</span>
+                                <span>• ${formatArticleDate(art.created_at)}</span>
+                            </div>
+                        </div>
+                        <div class="article-item-actions">
+                            <a href="article.html?slug=${encodeURIComponent(art.slug)}" target="_blank" class="btn btn-outline btn-sm">Lihat</a>
+                            <button type="button" class="btn btn-outline btn-sm btn-edit" data-id="${art.id}">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm btn-delete" data-id="${art.id}" data-title="${art.title.replace(/"/g, '&quot;')}">Hapus</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Attach Edit & Delete handlers
+                adminListEl.querySelectorAll('.btn-edit').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const article = data.find(a => a.id === btn.dataset.id);
+                        if (article) startEditArticle(article);
+                    });
+                });
+
+                adminListEl.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        if (!confirm(`Hapus artikel "${btn.dataset.title}"?`)) return;
+                        const { error: delErr } = await supabaseClient
+                            .from('articles')
+                            .delete()
+                            .eq('id', btn.dataset.id);
+
+                        if (delErr) {
+                            showAlert('Gagal menghapus: ' + delErr.message, 'error');
+                        } else {
+                            showAlert('Artikel berhasil dihapus.', 'success');
+                            loadAdminArticles();
+                        }
+                    });
+                });
+            }
+
+            document.getElementById('btn-refresh-list').addEventListener('click', loadAdminArticles);
+
+            // Edit Mode
+            const formTitle = document.getElementById('form-title');
+            const btnCancelEdit = document.getElementById('btn-cancel-edit');
+            const btnSaveArticle = document.getElementById('btn-save-article');
+
+            function startEditArticle(article) {
+                idInput.value = article.id;
+                titleInput.value = article.title;
+                slugInput.value = article.slug;
+                document.getElementById('article-category').value = article.category || 'Digital Marketing';
+                imageInput.value = article.image_url || '';
+                updateImagePreview(article.image_url || '');
+                document.getElementById('article-excerpt').value = article.excerpt || '';
+                contentArea.value = article.content || '';
+                document.getElementById('article-published').checked = !!article.published;
+
+                formTitle.textContent = 'Edit Artikel';
+                btnSaveArticle.textContent = '💾 Simpan Perubahan';
+                btnCancelEdit.style.display = 'inline-flex';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function resetArticleForm() {
+                document.getElementById('article-form').reset();
+                idInput.value = '';
+                updateImagePreview('');
+                formTitle.textContent = 'Buat Artikel Baru';
+                btnSaveArticle.textContent = '🚀 Publish Artikel';
+                btnCancelEdit.style.display = 'none';
+            }
+
+            btnCancelEdit.addEventListener('click', resetArticleForm);
+
+            // Create / Update Submit
+            document.getElementById('article-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!supabaseClient) return;
+
+                const id = idInput.value;
+                const payload = {
+                    title: titleInput.value.trim(),
+                    slug: slugInput.value.trim(),
+                    category: document.getElementById('article-category').value.trim(),
+                    image_url: imageInput.value.trim() || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
+                    excerpt: document.getElementById('article-excerpt').value.trim(),
+                    content: normalizeContentToHtml(contentArea.value),
+                    published: document.getElementById('article-published').checked,
+                    updated_at: new Date().toISOString()
+                };
+
+                btnSaveArticle.disabled = true;
+                btnSaveArticle.textContent = 'Menyimpan...';
+
+                let resultError = null;
+                if (id) {
+                    const { error } = await supabaseClient
+                        .from('articles')
+                        .update(payload)
+                        .eq('id', id);
+                    resultError = error;
+                } else {
+                    const { error } = await supabaseClient
+                        .from('articles')
+                        .insert([payload]);
+                    resultError = error;
+                }
+
+                btnSaveArticle.disabled = false;
+                btnSaveArticle.textContent = id ? '💾 Simpan Perubahan' : '🚀 Publish Artikel';
+
+                if (resultError) {
+                    showAlert('Gagal menyimpan artikel: ' + resultError.message, 'error');
+                    return;
+                }
+
+                showAlert(id ? 'Artikel berhasil diperbarui!' : 'Artikel baru berhasil dipublish!', 'success');
+                resetArticleForm();
+                loadAdminArticles();
+            });
+
+            checkSession();
+        });
+    </script>
+</body>
+
+</html>
+

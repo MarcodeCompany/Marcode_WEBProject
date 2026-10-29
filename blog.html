@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights & Artikel | Marcode Digital Marketing Agency</title>
+    <meta name="description" content="Artikel, insight, dan studi kasus seputar Web Development, Meta Ads, Google Ads, dan Analytics dari tim Marcode.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-solid">
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">
+                <img src="images/marcodelogo01.svg" alt="Marcode Logo" class="logo-img" onerror="this.style.display='none'">
+            </a>
+
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="index.html#about" class="nav-link">Synergy</a>
+                    <a href="index.html#services" class="nav-link">Features</a>
+                    <a href="index.html#pricing" class="nav-link">Pricing</a>
+                    <a href="index.html#work" class="nav-link">Work</a>
+                    <a href="blog.html" class="nav-link">Articles</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="index.html#contact" class="btn-primary">Klaim Audit</a>
+                </div>
+            </div>
+
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="articles-section" style="padding-top: 160px; min-height: 75vh;">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2>Insights & Artikel</h2>
+                        <p style="margin-top: 10px;">Strategi teknis web development, digital marketing, dan pertumbuhan bisnis berbasis data.</p>
+                    </div>
+                </div>
+
+                <!-- Articles Grid -->
+                <div id="blog-articles-grid" class="articles-grid">
+                    <p style="color: #666;">Memuat artikel...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <div class="footer-logo">
+                    <img src="images/marcodelogo01.svg" alt="Marcode" class="logo-img-small" onerror="this.style.display='none'">
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="blog.html">Articles</a>
+                    <a href="admin.html">Admin</a>
+                </div>
+                <div class="footer-copyright">
+                    © 2026 Marcode. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('blog-articles-grid');
+            const articles = await fetchPublishedArticles();
+
+            if (!articles || articles.length === 0) {
+                grid.innerHTML = '<p style="color: #666;">Belum ada artikel yang dipublish.</p>';
+                return;
+            }
+
+            grid.innerHTML = articles.map(art => `
+                <article class="article-card">
+                    <a href="article.html?slug=${encodeURIComponent(art.slug)}" class="article-card-thumb-wrap">
+                        <div class="article-card-thumb" style="background-image: url('${art.image_url || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop'}');"></div>
+                    </a>
+                    <div class="article-card-body">
+                        <div class="article-card-meta">
+                            <span class="article-category-tag">${art.category || 'Insight'}</span>
+                            <span>${formatArticleDate(art.created_at)}</span>
+                        </div>
+                        <h3 class="article-card-title">
+                            <a href="article.html?slug=${encodeURIComponent(art.slug)}">${art.title}</a>
+                        </h3>
+                        <p class="article-card-excerpt">${art.excerpt || ''}</p>
+                        <a href="article.html?slug=${encodeURIComponent(art.slug)}" class="article-read-more">
+                            Baca Selengkapnya <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+        });
+    </script>
+</body>
+
+</html>
+

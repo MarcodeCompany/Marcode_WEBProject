@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel | Marcode Digital Marketing Agency</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-solid">
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">
+                <img src="images/marcodelogo01.svg" alt="Marcode Logo" class="logo-img" onerror="this.style.display='none'">
+            </a>
+
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="index.html#about" class="nav-link">Synergy</a>
+                    <a href="index.html#services" class="nav-link">Features</a>
+                    <a href="index.html#pricing" class="nav-link">Pricing</a>
+                    <a href="index.html#work" class="nav-link">Work</a>
+                    <a href="blog.html" class="nav-link">Articles</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="index.html#contact" class="btn-primary">Klaim Audit</a>
+                </div>
+            </div>
+
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="article-reader-section">
+            <div class="article-reader-container" id="article-reader">
+                <p style="color: #666;">Memuat isi artikel...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <div class="footer-logo">
+                    <img src="images/marcodelogo01.svg" alt="Marcode" class="logo-img-small" onerror="this.style.display='none'">
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="blog.html">Articles</a>
+                    <a href="admin.html">Admin</a>
+                </div>
+                <div class="footer-copyright">
+                    © 2026 Marcode. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const reader = document.getElementById('article-reader');
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+
+            const article = await fetchArticleBySlug(slug);
+
+            if (!article) {
+                reader.innerHTML = `
+                    <div style="text-align: center; padding: 60px 0;">
+                        <h1 class="article-reader-title">Artikel Tidak Ditemukan</h1>
+                        <p style="color: #666; margin-bottom: 30px;">Maaf, artikel yang Anda cari tidak tersedia atau telah dihapus.</p>
+                        <a href="blog.html" class="btn-primary">← Kembali ke Daftar Artikel</a>
+                    </div>
+                `;
+                return;
+            }
+
+            document.title = `${article.title} | Marcode`;
+
+            reader.innerHTML = `
+                <div class="article-reader-header">
+                    <a href="blog.html" style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 24px;">
+                        ← Semua Artikel
+                    </a>
+                    <div class="article-card-meta" style="justify-content: flex-start; gap: 15px;">
+                        <span class="article-category-tag">${article.category || 'Insight'}</span>
+                        <span>${formatArticleDate(article.created_at)}</span>
+                    </div>
+                    <h1 class="article-reader-title">${article.title}</h1>
+                </div>
+
+                ${article.image_url ? `
+                    <div class="article-reader-cover" style="background-image: url('${article.image_url}');"></div>
+                ` : ''}
+
+                <div class="article-reader-content">
+                    ${article.content}
+                </div>
+
+                <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <strong style="font-family: var(--font-display); font-size: 1.2rem; display: block;">Ingin mengoptimalkan website & iklan bisnis Anda?</strong>
+                        <span style="color: #555; font-size: 0.95rem;">Diskusikan kebutuhan Anda bersama tim Marcode.</span>
+                    </div>
+                    <a href="index.html#contact" class="btn-primary">Klaim Free Audit ↗</a>
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>
+
